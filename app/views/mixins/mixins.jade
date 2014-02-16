@@ -1,0 +1,4 @@
+mixin form(method, action)
+  form(method=method, action=action, enctype=method == 'post' ? 'multipart/form-data' : '', attributes)
+    input(type='hidden', name='_csrf', value=(_csrf_token || 'xxx'))
+    block

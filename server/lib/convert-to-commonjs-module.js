@@ -1,0 +1,14 @@
+function convert(data, pathToData) {
+  var interpolateBraces = require('../../app/lib/utils').interpolateBraces
+    , commonjsTemplate = ';(function () { var module = { exports: {} }, exports = module.exports;\n' +
+        '%{data}\nprovide(\'%{pathToData}\', module.exports); }());\n'
+
+  // if file is `.json`, we directly export the contents of the file
+  if (pathToData.match(/\.json$/)) data = 'module.exports=' + data
+  return interpolateBraces(commonjsTemplate, {
+    data: data
+  , pathToData: pathToData.replace(/\.js$/, '') // strip `.js` but leave `.json`
+  })
+}
+
+module.exports = convert

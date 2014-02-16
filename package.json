@@ -1,0 +1,33 @@
+{
+  "name": "wiggin",
+  "description": "a web framework",
+  "version": "0.0.0",
+  "author": "Dustin Diaz <dustin@dustindiaz.com> (http://dustindiaz.com)",
+  "keywords": ["framework", "mvc", "express", "app", "wiggin"],
+  "main": "./index.js",
+  "engines": {
+    "node": "0.10.25",
+    "npm": "1.3.24"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "klass": "1.3.0",
+    "when": "2.3.0",
+    "debug": "0.7.2",
+    "valentine": "1.8.0",
+    "jade": "1.1.5",
+    "qs": "0.6.5",
+    "lodash-template": "1.0.0"
+  },
+  "devDependencies": {
+    "ender": "2.0.0",
+    "less": "1.6.2",
+    "cssjanus": "1.0.0",
+    "jshint": "1.1.0",
+    "mkdirp": "0.3.5",
+    "findit": "0.1.2",
+    "rimraf": "2.1.4",
+    "uglify-js": "2.3.6",
+    "gzipme": "0.0.9"
+  }
+}

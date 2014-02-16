@@ -1,0 +1,16 @@
+include ../mixins/mixins
+doctype
+html
+  head
+    title
+      block pagetitle
+    block meta
+      include ../partials/meta
+    block styles
+      include ../partials/styles
+    block scripts
+      include ../partials/scripts
+  body
+    block header
+      block content
+    block footer

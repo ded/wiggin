@@ -1,0 +1,6 @@
+{
+  "/": {
+    "get": "fixture.home",
+    "template": "fixture/home"
+  }
+}

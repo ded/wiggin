@@ -1,0 +1,23 @@
+{
+    "name": "corebundle"
+  , "author": "engineering"
+  , "version": "0.0.1"
+  , "private": true
+  , "dependencies": {
+      "morpheus": "0.7.0"
+    , "bean": "1.0.4"
+    , "bonzo": "1.3.x"
+    , "reqwest": "0.8.2"
+    , "qwery-pseudos": "1.0.0"
+    , "qwery": "3.4.x"
+    , "domready": "0.2.11"
+    , "bowser": "0.3.1"
+    , "klass": "1.3.x"
+    , "valentine": "1.8.x"
+    , "when": "2.3.0"
+    , "jaaulde-cookies": "1.0.0"
+    , "clone": "0.1.11"
+    , "qs": "0.6.5"
+    , "page": "1.3.7"
+  }
+}
