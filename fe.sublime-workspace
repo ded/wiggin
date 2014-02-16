@@ -7,6 +7,32 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 754,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/ender/package.json",
+			"settings":
+			{
+				"buffer_size": 424,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 45 files for \"require('clone')\"\n\n0 matches across 0 files\n",
+			"settings":
+			{
+				"buffer_size": 68,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -35,6 +61,12 @@
 	},
 	"file_history":
 	[
+		"/Users/ded/work/wiggin/tasks/js-bundler.js",
+		"/Users/ded/work/wiggin/tasks/gzip-css-assets.js",
+		"/Users/ded/work/wiggin/tasks/build-ender.js",
+		"/Users/ded/work/wiggin/tasks/build-client-views.js",
+		"/Users/ded/work/wiggin/app/views/partials/scripts.jade",
+		"/Users/ded/work/wiggin/app/models/fixture-model.js",
 		"/Users/ded/work/wiggin/app/models/base-model.js",
 		"/Users/ded/work/xoop/app/assets/less/boot.less",
 		"/Users/ded/work/dex/server/app.js",
@@ -156,11 +188,7 @@
 		"/Users/ded/work/dexter/packages/s3-sync/s3-sync.js",
 		"/Users/ded/work/dexter/docs/styleguide.md",
 		"/Users/ded/work/dexter/app/views/partials/meta.jade",
-		"/Users/ded/Desktop/angular/angular.html",
-		"/Users/ded/.gitconfig",
-		"/Users/ded/work/dexter/app/views/partials/head-scripts.jade",
-		"/Users/ded/.git-prompt.sh",
-		"/Users/ded/.git-completion.sh"
+		"/Users/ded/Desktop/angular/angular.html"
 	],
 	"find":
 	{
@@ -179,6 +207,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"require('clone')",
+			"dexter",
 			"valentine",
 			"express",
 			"color",
@@ -304,9 +334,7 @@
 			"baseRoute",
 			"routeSet",
 			"app.get('router'",
-			"locales",
-			"mounter'",
-			"errors"
+			"locales"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -314,6 +342,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"wiggin"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -324,8 +353,104 @@
 	"groups":
 	[
 		{
+			"selected": 2,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 754,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "client/ender/package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 424,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1,
+								1
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 68,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"line_numbers": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -376,15 +501,15 @@
 		"selected_items":
 		[
 			[
+				"pack",
+				"client/ender/package.json"
+			],
+			[
 				"basem",
 				"app/models/base-model.js"
 			],
 			[
 				"pakjson",
-				"package.json"
-			],
-			[
-				"pack",
 				"package.json"
 			],
 			[

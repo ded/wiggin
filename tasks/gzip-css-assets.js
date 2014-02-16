@@ -1,5 +1,5 @@
 var gzip = require('gzipme')
-  , debug = require('debug')('dexter:task')
+  , debug = require('debug')('wiggin:task')
   , finder = require('findit')
   , v = require('valentine')
   , filesToGzip = []

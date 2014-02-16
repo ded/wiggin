@@ -1,4 +1,4 @@
-var debug = require('debug')('dexter:task')
+var debug = require('debug')('wiggin:task')
   , fs = require('fs')
   , mkdirp = require('mkdirp')
   , rimraf = require('rimraf')

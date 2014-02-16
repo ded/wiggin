@@ -1,6 +1,6 @@
 var Ender = require('ender')
   , cwd = process.cwd()
-  , debug = require('debug')('dexter:task')
+  , debug = require('debug')('wiggin:task')
 
 /**
  * Ender must be run in root of its packages

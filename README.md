@@ -1,7 +1,7 @@
-## Fender
+## Wiggin
 A web framework
 
 ### install
 ``` sh
-npm install fender
+npm install wiggin
 ```

@@ -1,17 +1,9 @@
-var template = require('lodash-template')
-
-function parseJson(response) {
+module.exports.parse = function (response) {
   return response.replace(/^]\)}while\(1\);<\/x>/, '')
 }
 
-function interpolateBraces(templateArg, context) {
-  // interpolate variables that look like '%{name}'
-  var templateSettings = { interpolate: /%\{(\w+)\}/ }
-  return template(templateArg, (context || {}), templateSettings)
-}
-
-
-module.exports = {
-  parseJson: parseJson,
-  interpolateBraces: interpolateBraces
+module.exports.interpolate = function (s, o) {
+  return s.replace(/%\{([^}]+)}/g, function (m, key) {
+    return o[key] || ''
+  })
 }

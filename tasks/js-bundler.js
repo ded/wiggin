@@ -3,7 +3,7 @@
  */
 require('colors')
 
-var debug = require('debug')('dexter:task')
+var debug = require('debug')('wiggin:task')
   , path = require('path')
   , fs = require('fs')
   , uglify = require('uglify-js')

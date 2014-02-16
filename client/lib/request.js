@@ -9,10 +9,9 @@ provide('client/lib/request', function () {
      */
     dataFilter: function (response, type) {
       if (type == 'json') {
-        var resp = utils.parseJson(response)
+        var resp = utils.parse(response)
 
-        // Deal with some Rails action which send us a JSON
-        // response with an empty (or whitespace-only) body
+        // for empty responses
         if (resp.match(/^\s*$/)) resp = '{}'
 
         return resp

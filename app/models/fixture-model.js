@@ -4,7 +4,7 @@ module.exports = BaseModel.extend()
   .statics({
     'fixture.home': function (req) {
       return when.resolve({
-        title: 'Welcome to the Dexter Framework',
+        title: 'Welcome to the wiggin Framework',
         pagetitle: 'Home'
       })
     }

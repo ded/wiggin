@@ -1,15 +1,15 @@
 include loader
 script.
-  dexter = {};
+  wiggin = {};
   mixins = {};
-  dexter.applicationFiles = [];
-  dexter.routes = !{JSON.stringify(routes)};
+  wiggin.applicationFiles = [];
+  wiggin.routes = !{JSON.stringify(routes)};
 
 script(src='/js/ender/ender.js')
 
 script.
-  dexter.applicationFiles.push.apply(dexter.applicationFiles, !{JSON.stringify(dependencyTree)})
-  $script.order(dexter.applicationFiles, 'application', function () {
+  wiggin.applicationFiles.push.apply(wiggin.applicationFiles, !{JSON.stringify(dependencyTree)})
+  $script.order(wiggin.applicationFiles, 'application', function () {
     $(document).ready(function () {
       require('client/app').run()
     })
