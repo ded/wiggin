@@ -47,7 +47,6 @@ app.configure(function () {
     , mountedRoutes = router(routes)
 
   require('./app/lib/mounter')(app, mountedRoutes, function (method, path, callback) {
-    console.log(method, path)
     app[method](path, callback)
   })
 })
