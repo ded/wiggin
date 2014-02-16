@@ -48,10 +48,6 @@ app.configure(function () {
     , routes = require('./server/lib/post-mount')(routes)
     , mountedRoutes = router(routes)
 
-  app.locals.routes = mountedRoutes.filter(function (r) {
-    if (r.method == 'get') return true
-  })
-
   require('./app/lib/mounter')(app, mountedRoutes, function (method, path, callback) {
     console.log(method, path)
     app[method](path, callback)

@@ -28,10 +28,11 @@ provide('client/app', function () {
     require('*views/mixins/mixins')()
 
     // controllers
-    require('client/controllers/fixture-controller')
+    // require('client/controllers/fixture-controller')
 
     // mount routes to client controllers
-    expa.routes.forEach(function (route) {
+    wiggin.routes.forEach(function (route) {
+      if (route.method !== 'get') return;
       var Controller = require('client/controllers/' + route.controller + '-controller')
       if (!Controller) return;
       var c = new Controller
@@ -66,7 +67,7 @@ provide('client/app', function () {
 
   }
   return {
-    app: app
-  , run: run
+    app: app,
+    run: run
   }
 }());
