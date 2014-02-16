@@ -30,15 +30,13 @@ app.configure(function () {
   app.set('views', 'app/views')
 
   app.use(express.static('public'))
-  app.use(express.cookieParser('expa'))
+  app.use(express.cookieParser('wiggin'))
   app.use(express.methodOverride())
   app.use(express.cookieSession({
     path: '/',
     httpOnly: true,
     maxAge: 900000
   }))
-
-  app.use(require('./server/middleware/populate-view-locals'))
 
   // extend application locals with utilities
   v.extend(app.locals, { utils: utils })
