@@ -17,5 +17,5 @@ module.exports = function (routes) {
       })
     })
   })
-  return app.locals.routes = out
+  return out
 }

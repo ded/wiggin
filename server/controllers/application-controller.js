@@ -4,7 +4,6 @@ var fs = require('fs')
   , jade = require('jade')
   , qs = require('qs')
   , v = require('valentine')
-  , routes = require('config/routes.json')
 
 module.exports = klass(function (app) {
   this.app = app
@@ -12,13 +11,14 @@ module.exports = klass(function (app) {
 })
 .methods({
   render: function (req, res) {
-    var modelAction = routes[req.route.path][req.method.toLowerCase()]
+    var modelAction = this.app.locals.config.routes[req.route.path][req.method.toLowerCase()]
     var modelParts = modelAction.split('.')
     var model = modelParts[0]
-    var Model = require('app/models/' + model + '-model')
-    Model[modelAction](req).then(function (locals) {
-      res.render(routes[req.route.path].template, locals)
-    })
+    var action = modelParts[1]
+    var Model = require(this.app.locals.config.models + '/' + model + '-model')
+    Model[action](req).then(function (locals) {
+      res.render(this.app.locals.config.routes[req.route.path].template, locals)
+    }.bind(this))
   }
 , json: function (req, res, data) {
     data = '])}while(1);</x>' + JSON.stringify(data)
@@ -27,8 +27,8 @@ module.exports = klass(function (app) {
   }
 , addFilter: function (action, handler) {
     this.beforeFilters.push({
-      action: action
-    , handler: handler
+      action: action,
+      handler: handler
     })
   }
 , partial: function (req, res) {
@@ -42,11 +42,11 @@ module.exports = klass(function (app) {
       canonicalPath += '/' + val
     })
 
-    var routeParamsPath = routes[paramPath]
-    var template = p.normalize('app/views/' + routeParamsPath.template + '.jade')
+    var routeParamsPath = this.app.locals.config.routes[paramPath]
+    var template = p.normalize(this.app.locals.config.views + '/' + routeParamsPath.template + '.jade')
     var modelAction = routeParamsPath[req.method.toLowerCase()]
     var modelParts = modelAction.split('.')
-    var Model = require('app/models/' + modelParts[0] + '-model')
+    var Model = require(this.app.locals.config.models + '/' + modelParts[0] + '-model')
     var source = fs.readFileSync(template, 'utf8')
     var sequence = false
     var block = source.split('\n').filter(function (line) {

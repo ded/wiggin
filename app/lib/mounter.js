@@ -1,8 +1,9 @@
 var when = require('when')
   , v = require('valentine')
+  , path = require('path')
 
-function defaultControllerFactory(controllerName) {
-  return require('server/controllers/' + controllerName + '-controller')
+function controllerFactory(controllerPath, controllerName) {
+  return require(path.normalize(controllerPath + '/' + controllerName + '-controller'))
 }
 
 function getRouteHandler(app, Controller, route) {
@@ -32,15 +33,13 @@ function runBeforeFilters(controller, route, args) {
   })
 }
 
-function mount(app, routes, mounter, controllerFactory) {
+function mount(app, routes, mounter) {
   var Controller
     , handler
 
-  controllerFactory = controllerFactory || defaultControllerFactory
-
   routes.forEach(function (route) {
     try {
-      Controller = controllerFactory(route.controller)
+      Controller = controllerFactory(app.locals.config.controllers, route.controller)
     } catch (ex) {
       if (ex.code == 'MODULE_NOT_FOUND') {
         Controller = require('../../server/controllers/application-controller')
