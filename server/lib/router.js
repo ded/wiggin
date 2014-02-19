@@ -13,7 +13,7 @@ module.exports = function (routes) {
       , path: route
       , controller: controllerName
       , action: action
-      , template: routeData['template']
+      , template: routeData.template
       })
     })
   })

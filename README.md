@@ -6,13 +6,35 @@ A web framework
 npm install wiggin
 ```
 
-### Routing
+### implement
+``` js
+// app.js
+var wiggin = require('wiggin')
 
-``` json
-{
-  "/": {
-    "get": "controller.action",
-    "template": "fixture/home"
+wiggin.config({
+  'models': 'app/models',
+  'views': 'app/views',
+  'controllers': 'server/controllers',
+  'assets': 'app/assets',
+  'client': 'client',
+  'app': 'app'
+})
+
+wiggin.mount({
+    '/': {
+    'get': 'home.show',
+    'template': 'home/show'
   }
-}
+})
+
+wiggin.init(function (server) {
+  server.listen(3000, function () {
+    console.log('listening on port %d', server.address().port)
+  })
+})
+```
+
+### start your server
+``` sh
+DEBUG=wiggin:* node app
 ```
