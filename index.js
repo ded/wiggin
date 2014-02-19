@@ -6,6 +6,8 @@ var express = exports.express = require('express')
   , v = require('valentine')
   , debug = require('debug')('wiggin')
   , utils = require('./server/lib/utils')
+  , router = require('./server/lib/router')
+  , mounter = require('./app/lib/mounter')
   , app = exports.app = express()
   , server = exports.server = http.createServer(app)
 
@@ -39,21 +41,20 @@ app.configure(function () {
   // extend application locals with utilities
   v.extend(app.locals, { utils: utils })
 
-  var routes = require('config/routes.json')
-    , router = require('./server/lib/router')
-    , routes = require('./server/lib/post-mount')(routes)
-    , mountedRoutes = router(routes)
-
-  require('./app/lib/mounter')(app, mountedRoutes, function (method, path, callback) {
-    app[method](path, callback)
-  })
+  exports.mount = function (routes) {
+    routes = require('./server/lib/post-mount')(routes)
+    routes = router(routes)
+    mounter(app, routes, function (method, path, callback) {
+      app[method](path, callback)
+    })
+  }
 })
 
 app.configure('production', function () {
   app.enable('view cache')
 })
 
-module.exports.ApplicationController = require('./server/controllers/application-controller')
-module.exports.FixtureController = require('./server/controllers/fixture-controller')
-module.exports.BaseModel = require('./app/models/base-model')
-module.exports.FixtureModel = require('./app/models/fixture-model')
+exports.ApplicationController = require('./server/controllers/application-controller')
+exports.FixtureController = require('./server/controllers/fixture-controller')
+exports.BaseModel = require('./app/models/base-model')
+exports.FixtureModel = require('./app/models/fixture-model')
