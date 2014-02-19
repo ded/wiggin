@@ -53,8 +53,3 @@ app.configure(function () {
 app.configure('production', function () {
   app.enable('view cache')
 })
-
-exports.ApplicationController = require('./server/controllers/application-controller')
-exports.FixtureController = require('./server/controllers/fixture-controller')
-exports.BaseModel = require('./app/models/base-model')
-exports.FixtureModel = require('./app/models/fixture-model')

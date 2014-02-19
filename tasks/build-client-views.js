@@ -8,7 +8,7 @@ var debug = require('debug')('wiggin:task')
   , v = require('valentine')
   , files = []
 
-module.exports.write = function write(base, outDir, views, callback) {
+function write(base, outDir, views, callback) {
   v(views).each(function (view, index) {
     var contents = fs.readFileSync(view, 'utf8')
       , viewPath = view.substring(base.length)
@@ -44,14 +44,15 @@ module.exports.write = function write(base, outDir, views, callback) {
 
 }
 
-if (!module.parent) {
-  findit.find('app/views')
-  .on('file', function (file) {
-    if (/\.js$/.test(file)) files.push(file)
-  })
-  .on('end', function () {
-    module.exports.write('app/views', 'public/js/views/', files, function () {
-      files.forEach(rimraf.sync)
+
+module.exports.write = function (viewsFolder) {
+  findit.find(viewsFolder)
+    .on('file', function (file) {
+      if (/\.js$/.test(file)) files.push(file)
     })
-  })
+    .on('end', function () {
+      write(viewsFolder, 'public/js/views/', files, function () {
+        files.forEach(rimraf.sync)
+      })
+    })
 }

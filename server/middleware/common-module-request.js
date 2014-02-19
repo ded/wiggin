@@ -5,17 +5,17 @@
  * http://wiki.commonjs.org/wiki/Modules/1.1
  */
 
+var path = require('path')
+  , fs = require('fs')
+  , convertToCommonJsModule = require('../lib/convert-to-commonjs-module')
 function init(rootDir) {
 
-  var path = require('path')
-    , convertToCommonJsModule = require('../lib/convert-to-commonjs-module')
-    , fs = require('fs')
   function protect(p) {
     var normalizedPath = path.normalize(p.replace(/[^\w-\/_]/g, ''))
     return rootDir + normalizedPath.replace(/js(on)?$/, '.js$1')
   }
 
-  return function commonModuleRequest(req, res, next) {
+  return function (req, res, next) {
     var pathToModule = protect(req.path)
     fs.readFile(pathToModule, 'utf8', function (err, data) {
       if (err) {
