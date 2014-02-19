@@ -1,19 +1,17 @@
-var express = module.exports.express = require('express')
+exports = module.exports
+
+var express = exports.express = require('express')
   , http = require('http')
   , jade = require('jade')
   , v = require('valentine')
   , debug = require('debug')('wiggin')
   , utils = require('./server/lib/utils')
-  , app = module.exports.app = express()
-  , server = module.exports.server = http.createServer(app)
-
-app.use(express.compress())
-app.use(express.favicon())
+  , app = exports.app = express()
+  , server = exports.server = http.createServer(app)
 
 // config for dev
 app.configure('development', function () {
   app.use('/app', require('./server/middleware/common-module-request').init('app'))
-  app.use('/config', require('./server/middleware/common-module-request').init('config'))
   app.use('/client', express.static('client'))
   app.use('/assets', express.static('app/assets'))
   app.locals.dependencyTree = utils.getDependencyTreeFiles('client/app')
