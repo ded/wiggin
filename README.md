@@ -21,7 +21,7 @@ wiggin.config({
 })
 
 wiggin.mount({
-    '/': {
+  '/': {
     'get': 'home.show',
     'template': 'home/show'
   }
