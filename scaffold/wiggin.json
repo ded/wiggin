@@ -1,0 +1,9 @@
+{
+  "models": "app/models",
+  "views": "app/views",
+  "controllers": "app/controllers",
+  "assets": "client/assets",
+  "client": "client",
+  "app": "app",
+  "bundles": ["client/app"]
+}

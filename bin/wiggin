@@ -8,12 +8,12 @@ var exec = require('child_process').exec
 var config = require(process.cwd() + '/wiggin.json')
 
 var tasks = {
-  'build': function (flags) {
+  build: function (flags) {
     tasks.compile(config, function () {
       tasks.bundle(config)
     })
   },
-  'compile': function (flags, cb) {
+  compile: function (flags, cb) {
     rimraf.sync('./public/js/views')
     exec(__dirname + '/../node_modules/jade/bin/jade.js --client --no-debug --path ./ ' + flags.views, function (error, stdout, stderr) {
       require(__dirname + '/../tasks/build-client-views').write(flags.views, 'public/js/views/', function () {
@@ -22,7 +22,12 @@ var tasks = {
       })
     })
   },
-  'bundle': function (flags) {
+  create: function (flags) {
+    exec('cp -r ' + __dirname + '/scaffold/* .', function (err) {
+      console.log('successfully scaffolded application')
+    })
+  },
+  bundle: function (flags) {
     var bundler = require(__dirname + '/../tasks/js-bundler')
     flags.bundles.forEach(function (path) {
       bundler.bundle(path)
