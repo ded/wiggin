@@ -17,14 +17,14 @@ function write(base, outDir, views, callback) {
     // replace local jade_mixin var to use global jade mixins ns
     out = out.replace(/var jade_mixins = \{\};/g, mixinReplacement)
 
-    // make mixins accessible on `mixins` namespace
+    // make mixins accessible on `wiggin.mixins` namespace
     // before:    jade_mixins["form"] = function () { ... }
     // after:     wiggin.mixins["foo_bar"] = function () { ... }
     out = out.replace(/jade_mixins\["([\w\-_]+)"\] = function/g, function (_, name) {
       return 'wiggin.mixins["' + name + '"] = function'
     })
 
-    // rename calls to local mixins who don't use `.call()`
+    // rename calls to mixins
     // before:   jade_mixins["form"]()
     // after:    mixins.foo()
     out = out.replace(/jade_mixins\["([\w\-_]+)"\]\(/g, function (_, name) {
