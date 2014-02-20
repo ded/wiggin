@@ -18,6 +18,10 @@ exports.config = function (config) {
   v.extend(app.locals.config, config)
 }
 
+exports.use = function (middleware) {
+  app.use(middleware)
+}
+
 exports.init = function (callback) {
   // config for dev
   app.configure('development', function () {
