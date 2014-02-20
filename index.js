@@ -12,6 +12,7 @@ var express = exports.express = require('express')
   , postMount = require('./server/lib/post-mount')
   , app = exports.app = express()
 
+app.locals.config = {}
 app.locals.bundles = {}
 
 exports.config = function (config) {
