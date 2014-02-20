@@ -5,10 +5,11 @@ var clone = require('clone')
 var argv = minimist(process.argv.slice(2))
 var rimraf = require('rimraf')
 var exec = require('child_process').exec
-var config = require(process.cwd() + '/wiggin.json')
+
 
 var tasks = {
   build: function (flags) {
+    var config = require(process.cwd() + '/wiggin.json')
     tasks.compile(config, function () {
       tasks.bundle(config)
     })
@@ -23,8 +24,9 @@ var tasks = {
     })
   },
   create: function (flags) {
-    exec('cp -r ' + __dirname + '/scaffold/* .', function (err) {
-      console.log('successfully scaffolded application')
+    exec('cp -r ' + __dirname + '/../scaffold/* .', function (err) {
+      if (!err) console.log('successfully scaffolded application')
+      else console.log('something went wrong', err)
     })
   },
   bundle: function (flags) {

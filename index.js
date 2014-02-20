@@ -8,7 +8,7 @@ var express = exports.express = require('express')
   , debug = require('debug')('wiggin')
   , utils = require('./server/lib/utils')
   , router = require('./server/lib/router')
-  , mounter = require('./app/lib/mounter')
+  , mounter = require('./lib/mounter')
   , postMount = require('./server/lib/post-mount')
   , app = exports.app = express()
 

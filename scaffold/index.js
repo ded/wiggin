@@ -1,7 +1,7 @@
 var wiggin = require('wiggin')
 
 
-wiggin.config(require('./wiggin.json'))
+wiggin.config(require('./wiggin-conf.json'))
 
 wiggin.mount({
   '/': {

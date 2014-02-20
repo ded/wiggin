@@ -2,4 +2,4 @@
 export NODE_PATH = ./
 
 start:
-	DEBUG=wiggin:* node app
+	DEBUG=wiggin:* node index
