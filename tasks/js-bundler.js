@@ -1,7 +1,6 @@
 /**
  * @fileoverview builds a client bundle for any given entry point
  */
-require('colors')
 
 var debug = require('debug')('wiggin:task')
   , path = require('path')
@@ -38,9 +37,8 @@ module.exports.bundle = function (appName) {
   bundleMap = dependencyTree.map(function (f) {
     return path.normalize(bundlePath + f)
   })
-  var result = uglify.minify(bundleMap, {
-    'dead_code': true
-  })
+
+  var result = uglify.minify(bundleMap)
 
   mkdirp.sync('./public/js/client')
   // writes out the bundled minified code
@@ -48,6 +46,6 @@ module.exports.bundle = function (appName) {
   // creates a gzip file => app.min.js.gz
   gzip(outputFile)
 
-  rimraf.sync('tmp')
+  rimraf.sync(__dirname + '/../tmp')
   debug('successfully bundled %s', appName)
 }

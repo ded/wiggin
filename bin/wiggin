@@ -5,16 +5,29 @@ var clone = require('clone')
 var argv = minimist(process.argv.slice(2))
 var rimraf = require('rimraf')
 var exec = require('child_process').exec
+var config = require(process.cwd() + '/wiggin.json')
 
 var tasks = {
-  'compile-views': function (flags) {
-    console.log(flags)
+  'build': function (flags) {
+    tasks.compile(config, function () {
+      tasks.bundle(config)
+    })
+  },
+  'compile': function (flags, cb) {
     rimraf.sync('./public/js/views')
-    exec(__dirname + '/../node_modules/jade/bin/jade.js --client --no-debug --path ./ ' + flags.viewpath, function (error, stdout, stderr) {
-      require(__dirname + '/../tasks/build-client-views').write(flags.viewpath, 'public/js/views/', function () {
+    exec(__dirname + '/../node_modules/jade/bin/jade.js --client --no-debug --path ./ ' + flags.views, function (error, stdout, stderr) {
+      require(__dirname + '/../tasks/build-client-views').write(flags.views, 'public/js/views/', function () {
         !error && console.log('successfully compiled client views')
+        cb && cb()
       })
     })
+  },
+  'bundle': function (flags) {
+    var bundler = require(__dirname + '/../tasks/js-bundler')
+    flags.bundles.forEach(function (path) {
+      bundler.bundle(path)
+    })
+
   }
 }
 

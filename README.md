@@ -3,7 +3,8 @@ A web framework
 
 ### install
 ``` sh
-npm install wiggin
+$ npm install wiggin
+$ npm install -g wiggin
 ```
 
 ### implement
@@ -34,7 +35,12 @@ wiggin.init(function (server) {
 })
 ```
 
+### scaffold
+``` sh
+$ wiggin build
+```
+
 ### start your server
 ``` sh
-DEBUG=wiggin:* node app
+$ DEBUG=wiggin:* node app
 ```

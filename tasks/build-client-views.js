@@ -5,6 +5,7 @@ var debug = require('debug')('wiggin:task')
   , convert = require('../server/lib/convert-to-commonjs-module')
   , findit = require('findit')
   , path = require('path')
+  , mixinReplacement = 'wiggin.mixins = wiggin.mixins || {}'
   , files = []
 
 function write(base, outDir, views, callback) {
@@ -12,6 +13,23 @@ function write(base, outDir, views, callback) {
     var contents = fs.readFileSync(view, 'utf8')
       , viewPath = view.substring(base.length)
       , out = convert('module.exports=' + contents, '*views' + viewPath)
+
+    // replace local jade_mixin var to use global jade mixins ns
+    out = out.replace(/var jade_mixins = \{\};/g, mixinReplacement)
+
+    // make mixins accessible on `mixins` namespace
+    // before:    jade_mixins["form"] = function () { ... }
+    // after:     wiggin.mixins["foo_bar"] = function () { ... }
+    out = out.replace(/jade_mixins\["([\w\-_]+)"\] = function/g, function (_, name) {
+      return 'wiggin.mixins["' + name + '"] = function'
+    })
+
+    // rename calls to local mixins who don't use `.call()`
+    // before:   jade_mixins["form"]()
+    // after:    mixins.foo()
+    out = out.replace(/jade_mixins\["([\w\-_]+)"\]\(/g, function (_, name) {
+      return 'wiggin.mixins["' + name + '"]('
+    })
 
     mkdirp.sync(path.join(outDir + path.dirname(viewPath)))
     fs.writeFile(outDir + viewPath, out, 'utf8', function (err) {
