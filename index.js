@@ -12,7 +12,7 @@ var express = exports.express = require('express')
   , postMount = require('./server/lib/post-mount')
   , app = exports.app = express()
 
-app.locals.config = {}
+app.locals.bundles = {}
 
 exports.config = function (config) {
   v.extend(app.locals.config, config)
@@ -27,8 +27,10 @@ exports.init = function (callback) {
   app.configure('development', function () {
     app.use('/app', require('./server/middleware/common-module-request').init(app.locals.config.app))
     app.use('/client', express.static(app.locals.config.client))
-    app.use('/assets', express.static(app.locals.config.assets))
-    // app.locals.dependencyTree = utils.getDependencyTreeFiles('client/app')
+    app.use('/assets', express.static(app.locals.config.assets));
+    (app.locals.config.bundles || []).forEach(function (bundle) {
+      app.locals.bundles[bundle] =  utils.getDependencyTreeFiles(bundle)
+    })
   })
 
   app.configure(function () {

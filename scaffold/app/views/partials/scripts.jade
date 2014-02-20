@@ -1,0 +1,16 @@
+include loader
+script.
+  wiggin = {};
+  mixins = {};
+  wiggin.routes = !{JSON.stringify(routes)};
+
+script(src=utils.getAsset('/js/ender/ender.js'))
+
+if useCDN
+  script(src=utils.getAsset('/js/client/app.min.js'))
+else
+  for file in bundles['client/app']
+    script(src=file)
+
+script.
+  require('client/app').run()
