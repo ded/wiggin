@@ -3,8 +3,17 @@ A web framework
 
 ### install
 ``` sh
-$ npm install wiggin
 $ npm install -g wiggin
+```
+
+### scaffold
+``` sh
+$ wiggin create
+```
+
+### setup
+``` sh
+$ npm install
 ```
 
 ### implement
