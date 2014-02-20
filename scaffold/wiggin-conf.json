@@ -3,7 +3,7 @@
   "views": "app/views",
   "controllers": "app/controllers",
   "assets": "client/assets",
-  "client": "client",
-  "app": "app",
-  "bundles": ["client/app"]
+  "bundles": ["client/app"],
+  "public": "public",
+  "ender": "client/ender"
 }

@@ -7,6 +7,7 @@ var npm = require('npm')
   , mkdirp = require('mkdirp')
   , exec = require('child_process').exec
   , argv = minimist(process.argv.slice(2))
+  , v = require('valentine')
 
 var tasks = {
   create: function (flags) {
@@ -47,7 +48,21 @@ var tasks = {
     flags.bundles.forEach(function (path) {
       bundler.bundle(path)
     })
-
+  },
+  ender: function (flags) {
+    var pwd = process.cwd()
+    var config = v.extend(require(pwd + '/wiggin-conf.json'), flags)
+    mkdirp.sync(pwd + '/public/js/ender')
+    var enderPath = pwd + '/' + config.ender
+    process.chdir(enderPath)
+    var cmd = __dirname + '/../node_modules/ender/bin/ender build . --output ' + pwd + '/' + config['public'] + '/js/ender/ender.js'
+    console.log('executing command', cmd)
+    exec(cmd, function (err, stout, sterr) {
+      if (!err) {
+        console.log('Successfully compiled your ender build')
+      } else console.log('Oops. Your Ender build has failed', stout, err, sterr)
+      process.chdir(pwd)
+    })
   }
 }
 
