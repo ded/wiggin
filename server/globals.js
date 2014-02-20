@@ -1,1 +1,0 @@
-global.v = require('valentine')

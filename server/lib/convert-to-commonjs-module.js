@@ -1,5 +1,5 @@
 function convert(data, pathToData) {
-  var interpolate = require('../../app/lib/utils').interpolate
+  var interpolate = require('../../lib/utils').interpolate
   var template = ';(function () { var module = { exports: {} }, exports = module.exports;\n' +
         '%{data}\nprovide(\'%{pathToData}\', module.exports); }());\n'
 

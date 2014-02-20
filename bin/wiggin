@@ -1,17 +1,36 @@
 #!/usr/bin/env node
 
-var minimist = require('minimist')
-var clone = require('clone')
-var argv = minimist(process.argv.slice(2))
-var rimraf = require('rimraf')
-var exec = require('child_process').exec
-
+var npm = require('npm')
+  , minimist = require('minimist')
+  , clone = require('clone')
+  , rimraf = require('rimraf')
+  , mkdirp = require('mkdirp')
+  , exec = require('child_process').exec
+  , argv = minimist(process.argv.slice(2))
 
 var tasks = {
-  build: function (flags) {
-    var config = require(process.cwd() + '/wiggin.json')
+  create: function (flags) {
+    exec('cp -r ' + __dirname + '/../scaffold/* .', function (err) {
+      if (!err) {
+        console.log('Created Scaffold!')
+        mkdirp.sync(process.cwd() + '/node_modules')
+        npm.load({}, function (err, npm) {
+          npm.commands.install(["wiggin"], function () {
+            console.log('Install Wiggin locally!')
+            tasks.build({}, function () {
+              console.log('Congratulations! Successfully created application. Now run `make` to start your application.')
+            })
+          })
+        })
+      }
+      else console.log('oops! something went wrong', err)
+    })
+  },
+  build: function (flags, cb) {
+    var config = require(process.cwd() + '/wiggin-conf.json')
     tasks.compile(config, function () {
       tasks.bundle(config)
+      cb && cb()
     })
   },
   compile: function (flags, cb) {
@@ -21,12 +40,6 @@ var tasks = {
         !error && console.log('successfully compiled client views')
         cb && cb()
       })
-    })
-  },
-  create: function (flags) {
-    exec('cp -r ' + __dirname + '/../scaffold/* .', function (err) {
-      if (!err) console.log('successfully scaffolded application')
-      else console.log('something went wrong', err)
     })
   },
   bundle: function (flags) {

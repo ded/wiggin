@@ -24,7 +24,8 @@
     "valentine": "2.0.0",
     "jade": "1.1.5",
     "qs": "0.6.5",
-    "minimist": "0.0.7"
+    "minimist": "0.0.7",
+    "clone": "0.1.11"
   },
   "devDependencies": {
     "ender": "2.0.0",
@@ -36,6 +37,6 @@
     "rimraf": "2.1.4",
     "uglify-js": "2.3.6",
     "gzipme": "0.0.9",
-    "clone": "0.1.11"
+    "npm": "1.4.4"
   }
 }
