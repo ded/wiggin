@@ -67,6 +67,10 @@ var tasks = {
       } else console.log('Oops. Your Ender build has failed', stout, err, sterr)
       process.chdir(pwd)
     })
+  },
+  version: function () {
+    var pkg = require('../package.json')
+    console.log('You’re running Wiggin v' + pkg.version)
   }
 }
 
