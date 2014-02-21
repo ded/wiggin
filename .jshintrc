@@ -11,6 +11,7 @@
     , "exports"
     , "process"
     , "global"
+    , "console"
   ]
   , "white": true
   , "indent": 2

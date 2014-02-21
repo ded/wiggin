@@ -1,4 +1,4 @@
-var express = exports.express = require('express')
+var express = module.exports.express = require('express')
   , http = require('http')
   , jade = require('jade')
   , v = require('valentine')
@@ -6,23 +6,24 @@ var express = exports.express = require('express')
   , router = require('./server/lib/router')
   , mounter = require('./lib/mounter')
   , postMount = require('./server/lib/post-mount')
-  , app = exports.app = express()
+  , app = module.exports.app = express()
 
 app.locals.config = {}
 app.locals.bundles = {}
+app.locals.useCDN = process.env.useCDN ? JSON.parse(process.env.useCDN) : false
 
-exports.config = function (config) {
+module.exports.config = function (config) {
   v.extend(app.locals.config, config)
 }
 
-exports.use = function (middleware) {
+module.exports.use = function (middleware) {
   app.use(middleware)
 }
 
-exports.init = function (callback) {
+module.exports.init = function (callback) {
   // config for dev
   app.configure('development', function () {
-    app.use('/app', require('./server/middleware/common-module-request').init(app.locals.config.app))
+    app.use('/shared', require('./server/middleware/common-module-request').init(app.locals.config.shared))
     app.use('/client', express.static(app.locals.config.client))
     app.use('/assets', express.static(app.locals.config.assets));
     (app.locals.config.bundles || []).forEach(function (bundle) {
@@ -59,7 +60,7 @@ exports.init = function (callback) {
   callback(http.createServer(app))
 }
 
-exports.mount = function (routes) {
+module.exports.mount = function (routes) {
   app.locals.config.routes = routes
   routes = postMount(routes)
   routes = router(routes)

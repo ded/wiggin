@@ -2,6 +2,8 @@
   "models": "app/models",
   "views": "app/views",
   "controllers": "app/controllers",
+  "client": "client",
+  "shared": "shared",
   "assets": "client/assets",
   "bundles": ["client/app"],
   "public": "public",
