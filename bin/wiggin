@@ -17,7 +17,7 @@ var tasks = {
         mkdirp.sync(process.cwd() + '/node_modules')
         // yes i've heard of promises, just gimme a minute already.
         npm.load({}, function (err, npm) {
-          npm.commands.install(["wiggin"], function () {
+          npm.commands.install(["wiggin", "when"], function () {
             console.log('Installed Wiggin locally!')
             tasks.build({}, function () {
               tasks.ender({}, function () {
