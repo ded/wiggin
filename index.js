@@ -45,7 +45,7 @@ module.exports.init = function (callback) {
     app.use(express.methodOverride())
     app.use(app.router)
     app.use(express.cookieParser('wiggin'))
-    app.use(express.static(app.locals.config))
+    app.use(express.static(app.locals.config['public'] || 'public'))
 
     // extend application locals with utilities
     v.extend(app.locals, { utils: utils })
