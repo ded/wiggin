@@ -15,11 +15,14 @@ var tasks = {
       if (!err) {
         console.log('Created Scaffold!')
         mkdirp.sync(process.cwd() + '/node_modules')
+        // yes i've heard of promises, just gimme a minute already.
         npm.load({}, function (err, npm) {
           npm.commands.install(["wiggin"], function () {
-            console.log('Install Wiggin locally!')
+            console.log('Installed Wiggin locally!')
             tasks.build({}, function () {
-              console.log('Congratulations! Successfully created application. Now run `make` to start your application.')
+              tasks.ender({}, function () {
+                console.log('Congratulations! Successfully created application. Now run `make` to start your application.')
+              })
             })
           })
         })
@@ -38,7 +41,7 @@ var tasks = {
     rimraf.sync('./public/js/views')
     exec(__dirname + '/../node_modules/jade/bin/jade.js --client --no-debug --path ./ ' + flags.views, function (error, stdout, stderr) {
       require(__dirname + '/../tasks/build-client-views').write(flags.views, 'public/js/views/', function () {
-        !error && console.log('successfully compiled client views')
+        !error && console.log('successfully compiled client views', stdout)
         cb && cb()
       })
     })
@@ -49,9 +52,9 @@ var tasks = {
       bundler.bundle(path)
     })
   },
-  ender: function (flags) {
+  ender: function (flags, cb) {
     var pwd = process.cwd()
-    var config = v.extend(require(pwd + '/wiggin-conf.json'), flags)
+    var config = v.extend(require(pwd + '/wiggin-conf.json'), flags || {})
     mkdirp.sync(pwd + '/public/js/ender')
     var enderPath = pwd + '/' + config.ender
     process.chdir(enderPath)
@@ -59,7 +62,8 @@ var tasks = {
     console.log('executing command', cmd)
     exec(cmd, function (err, stout, sterr) {
       if (!err) {
-        console.log('Successfully compiled your ender build')
+        console.log('Successfully compiled your ender build', stout)
+        cb && cb()
       } else console.log('Oops. Your Ender build has failed', stout, err, sterr)
       process.chdir(pwd)
     })
