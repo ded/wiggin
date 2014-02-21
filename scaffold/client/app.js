@@ -17,7 +17,7 @@ provide('client/app', function () {
 
   function run() {
     // setup view runtime lib
-    require('client/lib/view-runtime')
+    require('client/vendor/view-runtime')
 
     // load global mixins to use within partials
     require('*views/mixins')()

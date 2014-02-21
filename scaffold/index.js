@@ -1,5 +1,5 @@
 var wiggin = require('wiggin')
-
+var debug = require('debug')('wiggin')
 
 wiggin.config(require('./wiggin-conf.json'))
 
@@ -12,6 +12,6 @@ wiggin.mount({
 
 wiggin.init(function (server) {
   server.listen(3000, function () {
-    console.log('listening on port %d', server.address().port)
+    debug('listening on port %d', server.address().port)
   })
 })

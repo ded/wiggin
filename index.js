@@ -1,11 +1,7 @@
-
-exports = module.exports
-
 var express = exports.express = require('express')
   , http = require('http')
   , jade = require('jade')
   , v = require('valentine')
-  , debug = require('debug')('wiggin')
   , utils = require('./server/lib/utils')
   , router = require('./server/lib/router')
   , mounter = require('./lib/mounter')

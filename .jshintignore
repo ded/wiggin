@@ -1,0 +1,7 @@
+config/
+app/vendor/
+node_modules/
+public/
+tmp/
+node_modules/
+scaffold/client/vendor/
