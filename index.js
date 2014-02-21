@@ -57,6 +57,17 @@ module.exports.init = function (callback) {
   app.configure('production', function () {
     app.enable('view cache')
   })
+
+  app.use(function (err, req, res, next) {
+    // we may use properties of the error object
+    // here and next(err) appropriately, or if
+    // we possibly recovered from the error, simply next().
+    res.render('500', {
+      status: err.status || 500,
+      error: err
+    })
+  })
+
   callback(http.createServer(app))
 }
 

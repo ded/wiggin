@@ -10,15 +10,25 @@ module.exports = klass(function (app) {
   this.beforeFilters = []
 })
 .methods({
-  render: function (req, res) {
+  render: function (req, res, next) {
     var modelAction = this.app.locals.config.routes[req.route.path][req.method.toLowerCase()]
     var modelParts = modelAction.split('.')
     var model = modelParts[0]
     var action = modelParts[1]
     var Model = require(this.app.locals.config.models + '/' + model + '-model')
-    Model[action](req).then(function (locals) {
+
+    function success(locals) {
       res.render(this.app.locals.config.routes[req.route.path].template, locals)
-    }.bind(this))
+    }
+
+    function reject(reason) {
+      reason.status = 500
+      next(reason)
+    }
+
+    Model[action](req)
+      .then(success.bind(this))
+      .otherwise(reject)
   }
 , json: function (req, res, data) {
     data = '])}while(1);</x>' + JSON.stringify(data)
