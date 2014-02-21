@@ -1,7 +1,7 @@
 {
   "name": "wiggin",
   "description": "a web framework",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Dustin Diaz <dustin@dustindiaz.com> (http://dustindiaz.com)",
   "keywords": [
     "framework",
