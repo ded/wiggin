@@ -17,7 +17,7 @@ module.exports.config = function (config) {
 }
 
 module.exports.use = function (middleware) {
-  app.use(middleware)
+  return app.use(middleware)
 }
 
 module.exports.init = function (callback) {
