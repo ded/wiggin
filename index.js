@@ -41,10 +41,7 @@ module.exports.init = function (callback) {
     app.set('view engine', 'jade')
     app.set('views', app.locals.config.views)
 
-    app.use(express.bodyParser())
-    app.use(express.methodOverride())
     app.use(app.router)
-    app.use(express.cookieParser('wiggin'))
     app.use(express.static(app.locals.config['public'] || 'public'))
 
     // extend application locals with utilities
