@@ -8,10 +8,20 @@ var express = module.exports.express = require('express')
   , postMount = require('./server/lib/post-mount')
   , app = module.exports.app = express()
 
+var errorHandler = function (err, req, res, next) {
+  res.render('500', {
+    status: err.status || 500,
+    error: err
+  })
+}
+
 app.locals.config = {}
 app.locals.bundles = {}
 app.locals.useCDN = process.env.useCDN ? JSON.parse(process.env.useCDN) : false
 
+module.exports.setErrorHandler = function (fn) {
+  errorHandler = fn
+}
 module.exports.config = function (config) {
   v.extend(app.locals.config, config)
 }
@@ -21,46 +31,32 @@ module.exports.use = function (middleware) {
 }
 
 module.exports.init = function (callback) {
-  // config for dev
-  app.configure('development', function () {
-    app.use('/shared', require('./server/middleware/common-module-request').init(app.locals.config.shared))
-    app.use('/client', express.static(app.locals.config.client))
-    app.use('/assets', express.static(app.locals.config.assets));
-    (app.locals.config.bundles || []).forEach(function (bundle) {
-      app.locals.bundles[bundle] =  utils.getDependencyTreeFiles(bundle)
-    })
+
+  app.use('/shared', require('./server/middleware/common-module-request').init(app.locals.config.shared))
+  app.use('/client', express.static(app.locals.config.client));
+  (app.locals.config.bundles || []).forEach(function (bundle) {
+    app.locals.bundles[bundle] =  utils.getDependencyTreeFiles(bundle)
   })
 
-  app.configure(function () {
+  // sets HTML pretty printing in non-prod environments
+  app.locals.pretty = process.env.NODE_ENV !== 'production'
 
-    // sets HTML pretty printing in non-prod environments
-    app.locals.pretty = process.env.NODE_ENV !== 'production'
+  // view options
+  app.engine('jade', jade.__express)
+  app.set('view engine', 'jade')
+  app.set('views', app.locals.config.views)
 
-    // view options
-    app.engine('jade', jade.__express)
-    app.set('view engine', 'jade')
-    app.set('views', app.locals.config.views)
+  app.use(app.router)
+  app.use(express.static(app.locals.config['public'] || 'public'))
 
-    app.use(app.router)
-    app.use(express.static(app.locals.config['public'] || 'public'))
-
-    // extend application locals with utilities
-    v.extend(app.locals, { utils: utils })
-  })
+  // extend application locals with utilities
+  v.extend(app.locals, { utils: utils })
 
   app.configure('production', function () {
     app.enable('view cache')
   })
 
-  app.use(function (err, req, res, next) {
-    // we may use properties of the error object
-    // here and next(err) appropriately, or if
-    // we possibly recovered from the error, simply next().
-    res.render('500', {
-      status: err.status || 500,
-      error: err
-    })
-  })
+  app.use(errorHandler)
 
   callback(http.createServer(app))
 }

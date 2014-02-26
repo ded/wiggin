@@ -4,6 +4,7 @@ var fs = require('fs')
   , jade = require('jade')
   , qs = require('qs')
   , v = require('valentine')
+  , when = require('when')
 
 module.exports = klass(function (app) {
   this.app = app
@@ -26,7 +27,7 @@ module.exports = klass(function (app) {
       next(reason)
     }
 
-    Model[action](req)
+    when(Model[action](req))
       .then(success.bind(this))
       .otherwise(reject)
   }
