@@ -3,7 +3,6 @@ module.exports = function (routes) {
   var out = []
   v(routes).each(function (route, routeData) {
     v(routeData).each(function (method, controllerMethod) {
-      if (method == 'template') return;
       var controllerParts = controllerMethod.split('.')
         , controllerName = controllerParts[0]
         , action = controllerParts[1]
@@ -13,7 +12,6 @@ module.exports = function (routes) {
       , path: route
       , controller: controllerName
       , action: action
-      , template: routeData.template
       })
     })
   })
