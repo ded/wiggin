@@ -5,7 +5,6 @@ var express = module.exports.express = require('express')
   , utils = require('./server/lib/utils')
   , router = require('./server/lib/router')
   , mounter = require('./lib/mounter')
-  , postMount = require('./server/lib/post-mount')
   , app = module.exports.app = express()
 
 var errorHandler = function (err, req, res, next) {
@@ -63,7 +62,6 @@ module.exports.init = function (callback) {
 
 module.exports.mount = function (routes) {
   app.locals.config.routes = routes
-  routes = postMount(routes)
   routes = router(routes)
   mounter(app, routes, function (method, path, callback) {
     app[method](path, callback)
