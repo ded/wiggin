@@ -19,4 +19,10 @@ module.exports = klass(function (app) {
       handler: handler
     })
   }
+, ok: function (msg) {
+    var self = this
+    return function () {
+      self.res.send(200, msg)
+    }
+  }
 })
