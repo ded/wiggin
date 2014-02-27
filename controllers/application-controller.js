@@ -25,4 +25,10 @@ module.exports = klass(function (app) {
       self.res.send(200, msg)
     }
   }
+, result: function (template) {
+    var self = this
+    return function (result) {
+      self.render(template, result)
+    }
+  }
 })
