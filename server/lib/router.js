@@ -1,17 +1,15 @@
 var v = require('valentine')
 module.exports = function (routes) {
   var out = []
-  v(routes).each(function (route, routeData) {
-    v(routeData).each(function (method, controllerMethod) {
-      var controllerParts = controllerMethod.split('.')
-        , controllerName = controllerParts[0]
-        , action = controllerParts[1]
-
+  v(routes).each(function (path, route) {
+    v(route.methods).each(function (method, callback) {
+      var parts = callback.split('.')
       out.push({
-        method: method
-      , path: route
-      , controller: controllerName
-      , action: action
+        name: route.name,
+        path: path,
+        method: method,
+        controller: parts[0],
+        action: parts[1] || 'index'
       })
     })
   })
