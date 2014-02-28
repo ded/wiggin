@@ -1,5 +1,5 @@
 var klass = require('klass')
-
+var v = require('valentine')
 module.exports = klass(function (app) {
   this.app = app
   this.beforeFilters = []
@@ -25,10 +25,10 @@ module.exports = klass(function (app) {
       self.res.send(200, msg || 'OK')
     }
   }
-, result: function (template) {
+, result: function (template, extra) {
     var self = this
     return function (result) {
-      self.render(template, result)
+      self.render(template, v.extend(result, extra || {}))
     }
   }
 })
