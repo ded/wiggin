@@ -22,7 +22,7 @@ module.exports = klass(function (app) {
 , ok: function (msg) {
     var self = this
     return function () {
-      self.res.send(200, msg)
+      self.res.send(200, msg || 'OK')
     }
   }
 , result: function (template) {
