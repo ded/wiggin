@@ -7,7 +7,3 @@ module.exports.getDependencyTreeFiles = function (name) {
     return d.replace(/^\/public/, '')
   })
 }
-
-module.exports.getAsset = function (asset) {
-  return asset
-}
