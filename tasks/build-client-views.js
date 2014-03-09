@@ -20,16 +20,7 @@ function write(base, outDir, views, callback) {
     // make mixins accessible on `wiggin.mixins` namespace
     // before:    jade_mixins["form"] = function () { ... }
     // after:     wiggin.mixins["foo_bar"] = function () { ... }
-    out = out.replace(/jade_mixins\["([\w\-_]+)"\] = function/g, function (_, name) {
-      return 'wiggin.mixins["' + name + '"] = function'
-    })
-
-    // rename calls to mixins
-    // before:   jade_mixins["form"]()
-    // after:    mixins.foo()
-    out = out.replace(/jade_mixins\["([\w\-_]+)"\]\(/g, function (_, name) {
-      return 'wiggin.mixins["' + name + '"]('
-    })
+    out = out.replace(/jade_mixins\[\"/g, 'wiggin.mixins["')
 
     mkdirp.sync(path.join(outDir + path.dirname(viewPath)))
     fs.writeFile(outDir + viewPath, out, 'utf8', function (err) {
