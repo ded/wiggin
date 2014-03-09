@@ -8,10 +8,10 @@ module.exports = klass(function (app) {
   render: function (template, locals) {
     this.res.render(template, locals)
   }
-, json: function (req, res, data) {
+, json: function (data) {
     data = '])}while(1);</x>' + JSON.stringify(data)
-    res.type('application/json')
-    res.send(data)
+    this.res.type('application/json')
+    this.res.send(data)
   }
 , addFilter: function (action, handler) {
     this.beforeFilters.push({
@@ -28,7 +28,8 @@ module.exports = klass(function (app) {
 , result: function (template, extra) {
     var self = this
     return function (result) {
-      self.render(template, v.extend(result, extra || {}))
+      var data = v.is.fun(extra) ? extra(result) : extra
+      self.render(template, v.extend(result, data || {}))
     }
   }
 })
