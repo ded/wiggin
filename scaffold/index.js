@@ -4,8 +4,9 @@ wiggin.config(require('./wiggin-conf.json'))
 
 wiggin.mount({
   '/': {
-    'get': 'home.show',
-    'template': 'home/show'
+    'methods': {
+      'get': 'home.show'
+    }
   }
 })
 
