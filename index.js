@@ -45,7 +45,6 @@ module.exports.init = function (callback) {
   app.set('view engine', 'jade')
   app.set('views', app.locals.config.views)
 
-  app.use(app.router)
   app.use(express.static(app.locals.config['public'] || 'public'))
 
   // extend application locals with utilities
@@ -54,8 +53,6 @@ module.exports.init = function (callback) {
   app.configure('production', function () {
     app.enable('view cache')
   })
-
-  app.use(errorHandler)
 
   callback(http.createServer(app))
 }
