@@ -50,9 +50,7 @@ module.exports.init = function (callback) {
   // extend application locals with utilities
   v.extend(app.locals, { utils: utils })
 
-  app.configure('production', function () {
-    app.enable('view cache')
-  })
+  if (process.env.NODE_ENV == 'production') app.enable('view cache')
 
   callback(http.createServer(app))
 }
