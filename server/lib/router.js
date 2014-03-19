@@ -5,7 +5,7 @@ module.exports = function (routes) {
     v(route.methods).each(function (method, callback) {
       var parts = callback.split('.')
       out.push({
-        name: route.name,
+        server: v.is.bool(route.server) ? route.server : false,
         path: path,
         method: method,
         controller: parts[0],
