@@ -5,8 +5,8 @@ module.exports = klass(function (app) {
   this.beforeFilters = []
 })
 .methods({
-  render: function (template, locals) {
-    this.res.render(template, locals)
+  render: function () {
+    this.res.render.apply(this.res, arguments)
   }
 , json: function (data) {
     data = '])}while(1);</x>' + JSON.stringify(data)
