@@ -28,7 +28,7 @@ module.exports.bundle = function (appName, sharedPath) {
     mkdirp.sync(bundlePath + dirname)
     contents = fs.readFileSync(file, 'utf8')
     // "shared" modules need to `provide()` themselves
-    if (file.match(new RegExp('^' + sharedPath)) {
+    if (file.match(new RegExp('^' + sharedPath))) {
       contents = convertToCommonJsModule(contents, file)
     }
     fs.writeFileSync(bundlePath + file, contents, 'utf8')
