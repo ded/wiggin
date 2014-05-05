@@ -49,7 +49,7 @@ var tasks = {
   bundle: function (flags) {
     var bundler = require(__dirname + '/../tasks/js-bundler')
     flags.bundles.forEach(function (path) {
-      bundler.bundle(path)
+      bundler.bundle(path, flags.shared)
     })
   },
   ender: function (flags, cb) {

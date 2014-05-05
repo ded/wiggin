@@ -13,7 +13,7 @@ var debug = require('debug')('wiggin:task')
   , convertToCommonJsModule = require('../server/lib/convert-to-commonjs-module')
   , bundlePath = __dirname + '/../tmp/bundle/'
 
-module.exports.bundle = function (appName) {
+module.exports.bundle = function (appName, sharedPath) {
   var bundleMap = []
   var appFileName = appName.match(/\/(.+)$/)[1]
   var outputFile = './public/js/client/' + appFileName + '.min.js'
@@ -28,7 +28,7 @@ module.exports.bundle = function (appName) {
     mkdirp.sync(bundlePath + dirname)
     contents = fs.readFileSync(file, 'utf8')
     // "shared" modules need to `provide()` themselves
-    if (file.match(/^(app|config)\//)) {
+    if (file.match(new RegExp('^' + sharedPath)) {
       contents = convertToCommonJsModule(contents, file)
     }
     fs.writeFileSync(bundlePath + file, contents, 'utf8')
