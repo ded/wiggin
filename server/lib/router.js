@@ -9,7 +9,7 @@ module.exports = function (routes) {
         path: path,
         method: method,
         controller: parts[0],
-        action: parts[1] || 'index'
+        action: parts[1]
       })
     })
   })
