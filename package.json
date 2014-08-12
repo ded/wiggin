@@ -13,8 +13,7 @@
   "main": "./index.js",
   "bin": "./bin/wiggin",
   "engines": {
-    "node": "0.10.x",
-    "npm": "1.4.x"
+    "node": "0.10.x"
   },
   "dependencies": {
     "express": "4.8.0",
