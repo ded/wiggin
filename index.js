@@ -60,6 +60,6 @@ module.exports.mount = function (routes) {
   app.locals.config.routes = routes
   routes = router(routes)
   mounter(app, routes, function (method, path, callbacks) {
-    expressRouter[method].apply(expressRouter, [path].concat(callbacks))
+    expressRouter[method].apply(expressRouter, path, callbacks)
   })
 }
