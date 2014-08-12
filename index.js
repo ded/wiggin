@@ -59,7 +59,7 @@ module.exports.init = function (callback) {
 module.exports.mount = function (routes) {
   app.locals.config.routes = routes
   routes = router(routes)
-  mounter(app, routes, function (method, path, callback) {
-    expressRouter[method](path, callback)
+  mounter(app, routes, function (method, path, callbacks) {
+    expressRouter[method].apply(expressRouter, [path].concat(callbacks))
   })
 }
