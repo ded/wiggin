@@ -1,5 +1,4 @@
 var express = module.exports.express = require('express')
-  , http = require('http')
   , jade = require('jade')
   , v = require('valentine')
   , utils = require('./server/lib/utils')
@@ -30,7 +29,7 @@ module.exports.use = function (middleware) {
   return expressRouter.use(middleware)
 }
 
-module.exports.init = function (callback) {
+module.exports.init = function (transport, callback) {
 
   expressRouter.use('/shared', require('./server/middleware/common-module-request').init(app.locals.config.shared))
   expressRouter.use('/client', express.static(app.locals.config.client));
@@ -50,8 +49,7 @@ module.exports.init = function (callback) {
   v.extend(app.locals, { utils: utils })
 
   if (process.env.NODE_ENV == 'production') app.enable('view cache')
-
-  callback(http.createServer(app), function () {
+  callback(transport.createServer(app), function () {
     app.use(expressRouter)
   })
 }
