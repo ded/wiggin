@@ -6,8 +6,13 @@ module.exports = klass(function (app) {
 })
 .methods({
   render: function () {
-    this.res.render.apply(this.res, arguments)
-  }
+    try {
+      this.res.render.apply(this.res, arguments)
+    } catch(e) {
+      e.args = arguments
+      throw e
+    }
+   }
 , json: function (data) {
     data = '])}while(1);</x>' + JSON.stringify(data)
     this.res.type('application/json')
