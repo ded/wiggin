@@ -9,7 +9,7 @@ module.exports = klass(function (app) {
     try {
       this.res.render.apply(this.res, arguments)
     } catch(e) {
-      e.args = arguments
+      e.params = arguments
       throw e
     }
    }
