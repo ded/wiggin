@@ -37,9 +37,6 @@ module.exports.init = function (transport, callback) {
     app.locals.bundles[bundle] =  utils.getDependencyTreeFiles(bundle)
   })
 
-  // sets HTML pretty printing in non-prod environments
-  app.locals.pretty = process.env.NODE_ENV !== 'production'
-
   // view options
   app.engine('jade', jade.__express)
   app.set('view engine', 'jade')
