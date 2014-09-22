@@ -16,7 +16,7 @@ module.exports = klass(function (app) {
 , json: function (data) {
     data = '])}while(1);</x>' + JSON.stringify(data)
     this.res.type('application/json')
-    this.res.send(data)
+    this.res.status(200).send(data)
   }
 , addFilter: function (action, handler) {
     this.beforeFilters.push({
@@ -27,7 +27,7 @@ module.exports = klass(function (app) {
 , ok: function (msg) {
     var self = this
     return function () {
-      self.res.send(200, msg || 'OK')
+      self.res.status(200).send(msg || 'OK')
     }
   }
 , result: function (template, extra) {
