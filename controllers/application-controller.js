@@ -1,7 +1,8 @@
 var klass = require('klass')
 var v = require('valentine')
-module.exports = klass(function (app) {
-  this.app = app
+module.exports = klass(function (req, res) {
+  this.req = req
+  this.res = res
   this.beforeFilters = []
 })
 .methods({
