@@ -9,11 +9,11 @@ module.exports = klass(function (req, res) {
   render: function () {
     try {
       this.res.render.apply(this.res, arguments)
-    } catch(e) {
+    } catch (e) {
       e.args = arguments
       throw e
     }
-   }
+  }
 , json: function (data) {
     data = '])}while(1);</x>' + JSON.stringify(data)
     this.res.type('application/json')
