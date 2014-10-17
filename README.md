@@ -18,5 +18,13 @@ $ wiggin create
 $ make
 ```
 
-### note
-A sincere apology, albeit this framework is production ready, there is essentially *zero documentation*. Therefore, if you are reading this right now, Do not use this unless you consider reading the source code as your means as figuring out how it works.
+### CLI
+``` sh
+$ wiggin build
+```
+Creates your compiled `jade` views, then bundles your client dependency tree given the `client` input found in `wiggin-conf.json`.
+
+``` sh
+$ wiggin ender
+```
+Builds your ender `package.json` into a single file.
