@@ -1,6 +1,8 @@
 module.exports = require('wiggin/controllers/application-controller').extend()
   .methods({
-    home: function (next) {
-      this.render('index')
+    show: function (next) {
+      this.render('home/show', {
+        title: 'Welcome to the Wiggin Framework'
+      })
     }
   })
