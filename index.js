@@ -18,9 +18,6 @@ app.locals.config = {}
 app.locals.bundles = {}
 app.locals.useCDN = process.env.useCDN ? JSON.parse(process.env.useCDN) : false
 
-module.exports.setErrorHandler = function (fn) {
-  errorHandler = fn
-}
 module.exports.config = function (config) {
   v.extend(app.locals.config, config)
 }
@@ -30,11 +27,10 @@ module.exports.use = function (middleware) {
 }
 
 module.exports.init = function (transport, callback) {
-
   expressRouter.use('/shared', require('./server/middleware/common-module-request').init(app.locals.config.shared))
   expressRouter.use('/client', express.static(app.locals.config.client));
   (app.locals.config.bundles || []).forEach(function (bundle) {
-    app.locals.bundles[bundle] =  utils.getDependencyTreeFiles(bundle)
+    app.locals.bundles[bundle] = utils.getDependencyTreeFiles(bundle)
   })
 
   // view options
