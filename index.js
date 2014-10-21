@@ -42,9 +42,8 @@ module.exports.init = function (transport, callback) {
   v.extend(app.locals, { utils: utils })
 
   if (process.env.NODE_ENV == 'production') app.enable('view cache')
-  callback(transport.createServer(app), function () {
-    app.use(expressRouter)
-  })
+  callback(transport.createServer(app))
+  app.use(expressRouter)
 }
 
 module.exports.mount = function (routes) {
