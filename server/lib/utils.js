@@ -7,3 +7,11 @@ module.exports.getDependencyTreeFiles = function (name) {
     return d.replace(/^\/public/, '')
   })
 }
+
+/**
+ * should be implemented by application
+ */
+module.exports.getAsset = function (asset) {
+  console.warn('`getAsset()` should be implemented by the application')
+  return asset
+}
