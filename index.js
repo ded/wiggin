@@ -26,6 +26,11 @@ module.exports.use = function (middleware) {
   return expressRouter.use(middleware)
 }
 
+module.exports.logger = function (next) {
+  debug(this.req.method + '::' + this.req.url, Date.now())
+  next()
+}
+
 module.exports.init = function (transport, callback) {
   expressRouter.use('/shared', require('./server/middleware/common-module-request').init(app.locals.config.shared))
   expressRouter.use('/client', express.static(app.locals.config.client));
