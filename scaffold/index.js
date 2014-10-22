@@ -10,8 +10,6 @@ wiggin.mount({
   }
 })
 
-wiggin.use(wiggin.logger)
-
 wiggin.init(require('http'), function (server) {
   server.listen(process.env.PORT || 3000, function () {
     console.log('listening on port %d', server.address().port)
