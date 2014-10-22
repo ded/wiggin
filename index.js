@@ -6,6 +6,7 @@ var express = module.exports.express = require('express')
   , mounter = require('./lib/mounter')
   , app = module.exports.app = express()
   , expressRouter = module.exports.router = express.Router()
+  , debug = require('debug')('wiggin:app')
 
 var errorHandler = function (err, req, res, next) {
   res.render('500', {
