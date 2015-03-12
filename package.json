@@ -31,7 +31,7 @@
     "uglify-js": "2.3.6",
     "gzipme": "0.0.9",
     "npm": "1.4.4",
-    "ender": "2.0.0"
+    "ender": "2.1.0"
   },
   "devDependencies": {
     "jshint": "1.1.0"
