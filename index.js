@@ -8,13 +8,6 @@ var express = module.exports.express = require('express')
   , expressRouter = module.exports.router = express.Router()
   , debug = require('debug')('wiggin:app')
 
-var errorHandler = function (err, req, res, next) {
-  res.render('500', {
-    status: err.status || 500,
-    error: err
-  })
-}
-
 app.locals.config = {}
 app.locals.bundles = {}
 app.locals.useCDN = process.env.useCDN ? JSON.parse(process.env.useCDN) : false
