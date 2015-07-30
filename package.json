@@ -22,7 +22,7 @@
     "express": "4.13.0",
     "findit": "0.1.2",
     "gzipme": "0.0.9",
-    "jade": "1.11.0",
+    "jade": "1.6.0",
     "klass": "1.4.0",
     "minimist": "0.0.7",
     "mkdirp": "0.3.5",
