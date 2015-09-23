@@ -14,7 +14,7 @@ module.exports.gzip = function (files, done) {
 }
 
 if (!module.parent) {
-  finder.find('./public/css')
+  finder('./public/css')
   .on('file', function (file) {
     if (file.match(/\.min\.css$/)) filesToGzip.push(file)
   })

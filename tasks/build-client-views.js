@@ -32,13 +32,15 @@ function write(base, outDir, views, callback) {
 }
 
 module.exports.write = function (viewsFolder, out, callback) {
-  findit.find(viewsFolder)
+  findit(viewsFolder)
     .on('file', function (file) {
       if (/\.js$/.test(file)) files.push(file)
     })
     .on('end', function () {
       write(viewsFolder, out, files, function () {
-        files.forEach(rimraf.sync)
+        files.forEach(function (file) {
+          rimraf.sync(file)
+        })
         callback()
       })
     })

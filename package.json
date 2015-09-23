@@ -16,24 +16,24 @@
     "node": "0.12.x"
   },
   "dependencies": {
-    "clone": "0.1.11",
-    "debug": "0.7.2",
-    "ender": "2.1.0",
-    "express": "4.13.0",
-    "findit": "0.1.2",
+    "clone": "^1.0.2",
+    "debug": "^2.2.0",
+    "ender": "^2.1.1",
+    "express": "^4.13.3",
+    "findit": "^2.0.0",
     "gzipme": "0.0.9",
-    "jade": "1.6.0",
-    "klass": "1.4.0",
-    "minimist": "0.0.7",
-    "mkdirp": "0.3.5",
-    "npm": "^2.13.2",
-    "qs": "4.0.0",
-    "rimraf": "2.1.4",
+    "jade": "^1.11.0",
+    "klass": "^1.4.1",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "npm": "^2.14.5",
+    "qs": "^5.1.0",
+    "rimraf": "^2.4.3",
     "uglify-js": "2.4.24",
-    "valentine": "2.1.0",
-    "when": "3.7.2"
+    "valentine": "^2.1.4",
+    "when": "^3.7.3"
   },
   "devDependencies": {
-    "jshint": "1.1.0"
+    "jshint": "^2.8.0"
   }
 }

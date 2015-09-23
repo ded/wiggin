@@ -8,6 +8,7 @@ var npm = require('npm')
   , exec = require('child_process').exec
   , argv = minimist(process.argv.slice(2))
   , v = require('valentine')
+  , fs = require('fs')
 
 var tasks = {
   create: function (flags) {
@@ -39,9 +40,18 @@ var tasks = {
   },
   compile: function (flags, cb) {
     rimraf.sync('./public/js/views')
-    exec(__dirname + '/../node_modules/jade/bin/jade.js --client --no-debug --path ./ ' + flags.views, function (error, stdout, stderr) {
+    var jadeRunPath = __dirname + '/../node_modules/jade/bin/jade.js --client --no-debug --path ./ ' + flags.views
+    if (!fs.existsSync(jadeRunPath)) {
+      jadeRunPath = __dirname + '/../../jade/bin/jade.js --client --no-debug --path ./ ' + flags.views
+      console.log('falling back to app level jade library', jadeRunPath)
+    }
+    exec(jadeRunPath, function (error, stdout, stderr) {
+      if (error) {
+        console.error(error)
+        process.exit(1)
+      }
       require(__dirname + '/../tasks/build-client-views').write(flags.views, 'public/js/views/', function () {
-        !error && console.log('successfully compiled client views', stdout)
+        console.log('successfully compiled client views', stdout)
         cb && cb()
       })
     })

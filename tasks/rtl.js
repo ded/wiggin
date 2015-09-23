@@ -3,7 +3,7 @@ var fs = require('fs')
   , Janus = require('cssjanus')
   , janus = Janus.CSSJanus()
 
-finder.find('./public/css')
+finder('./public/css')
   .on('file', function (file) {
     // we use `&&` because regex does not have negative look behinds
     if (!file.match(/\.rtl\./) && file.match(/min\.css$/)) {
