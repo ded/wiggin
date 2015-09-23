@@ -1,8 +1,3 @@
-/*!
- * Jade - runtime
- * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
- * MIT Licensed
- */
 provide('client/vendor/view-runtime', function () {
   var exports = {}
 
@@ -66,7 +61,9 @@ provide('client/vendor/view-runtime', function () {
    */
   exports.joinClasses = joinClasses;
   function joinClasses(val) {
-    return Array.isArray(val) ? val.map(joinClasses).filter(nulls).join(' ') : val;
+    return (Array.isArray(val) ? val.map(joinClasses) :
+      (val && typeof val === 'object') ? Object.keys(val).filter(function (key) { return val[key]; }) :
+        [val]).filter(nulls).join(' ');
   }
 
   /**
@@ -93,6 +90,16 @@ provide('client/vendor/view-runtime', function () {
     }
   };
 
+
+  exports.style = function (val) {
+    if (val && typeof val === 'object') {
+      return Object.keys(val).map(function (style) {
+        return style + ':' + val[style];
+      }).join(';');
+    } else {
+      return val;
+    }
+  };
   /**
    * Render the given attribute.
    *
@@ -103,6 +110,9 @@ provide('client/vendor/view-runtime', function () {
    * @return {String}
    */
   exports.attr = function attr(key, val, escaped, terse) {
+    if (key === 'style') {
+      val = exports.style(val);
+    }
     if ('boolean' == typeof val || null == val) {
       if (val) {
         return ' ' + (terse ? key : key + '="' + key + '"');
@@ -110,10 +120,24 @@ provide('client/vendor/view-runtime', function () {
         return '';
       }
     } else if (0 == key.indexOf('data') && 'string' != typeof val) {
+      if (JSON.stringify(val).indexOf('&') !== -1) {
+        console.warn('Since Jade 2.0.0, ampersands (`&`) in data attributes ' +
+          'will be escaped to `&amp;`');
+      };
+      if (val && typeof val.toISOString === 'function') {
+        console.warn('Jade will eliminate the double quotes around dates in ' +
+          'ISO form after 2.0.0');
+      }
       return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
     } else if (escaped) {
+      if (val && typeof val.toISOString === 'function') {
+        console.warn('Jade will stringify dates in ISO form after 2.0.0');
+      }
       return ' ' + key + '="' + exports.escape(val) + '"';
     } else {
+      if (val && typeof val.toISOString === 'function') {
+        console.warn('Jade will stringify dates in ISO form after 2.0.0');
+      }
       return ' ' + key + '="' + val + '"';
     }
   };
@@ -156,12 +180,21 @@ provide('client/vendor/view-runtime', function () {
    * @api private
    */
 
-  exports.escape = function escape(html){
-    var result = String(html)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
+  var jade_encode_html_rules = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;'
+  };
+  var jade_match_html = /[&<>"]/g;
+
+  function jade_encode_char(c) {
+    return jade_encode_html_rules[c] || c;
+  }
+
+  exports.escape = jade_escape;
+  function jade_escape(html){
+    var result = String(html).replace(jade_match_html, jade_encode_char);
     if (result === '' + html) return html;
     else return result;
   };
@@ -176,7 +209,42 @@ provide('client/vendor/view-runtime', function () {
    * @api private
    */
 
-  exports.rethrow = function () {};
+  exports.rethrow = function rethrow(err, filename, lineno, str){
+    if (!(err instanceof Error)) throw err;
+    if ((typeof window != 'undefined' || !filename) && !str) {
+      err.message += ' on line ' + lineno;
+      throw err;
+    }
+    try {
+      str = str || require('fs').readFileSync(filename, 'utf8')
+    } catch (ex) {
+      rethrow(err, null, lineno)
+    }
+    var context = 3
+      , lines = str.split('\n')
+      , start = Math.max(lineno - context, 0)
+      , end = Math.min(lines.length, lineno + context);
+
+    // Error context
+    var context = lines.slice(start, end).map(function(line, i){
+      var curr = i + start + 1;
+      return (curr == lineno ? '  > ' : '    ')
+        + curr
+        + '| '
+        + line;
+    }).join('\n');
+
+    // Alter exception message
+    err.path = filename;
+    err.message = (filename || 'Jade') + ':' + lineno
+      + '\n' + context + '\n\n' + err.message;
+    throw err;
+  };
+
+  exports.DebugItem = function DebugItem(lineno, filename) {
+    this.lineno = lineno;
+    this.filename = filename;
+  }
 
   return this.jade = exports
 }());
