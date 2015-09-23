@@ -38,7 +38,9 @@ module.exports.write = function (viewsFolder, out, callback) {
     })
     .on('end', function () {
       write(viewsFolder, out, files, function () {
-        files.forEach(rimraf.sync)
+        files.forEach(function (file) {
+          rimraf.sync(file)
+        })
         callback()
       })
     })

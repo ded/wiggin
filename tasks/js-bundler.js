@@ -14,7 +14,6 @@ var debug = require('debug')('wiggin:task')
   , bundlePath = __dirname + '/../tmp/bundle/'
 
 module.exports.bundle = function (appName, sharedPath) {
-  var bundleMap = []
   var appFileName = appName.match(/\/(.+)$/)[1]
   var outputFile = './public/js/client/' + appFileName + '.min.js'
   var dependencyTree = analyzer.init(appName).get()
@@ -34,7 +33,7 @@ module.exports.bundle = function (appName, sharedPath) {
     fs.writeFileSync(bundlePath + file, contents, 'utf8')
   })
 
-  bundleMap = dependencyTree.map(function (f) {
+  var bundleMap = dependencyTree.map(function (f) {
     return path.normalize(bundlePath + f)
   })
 
