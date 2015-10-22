@@ -13,7 +13,7 @@
   "main": "./index.js",
   "bin": "./bin/wiggin",
   "engines": {
-    "node": "0.12.x"
+    "node": "4.1.x"
   },
   "dependencies": {
     "clone": "^1.0.2",
