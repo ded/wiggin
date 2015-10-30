@@ -13,7 +13,7 @@
   "main": "./index.js",
   "bin": "./bin/wiggin",
   "engines": {
-    "node": "0.12.x"
+    "node": "4.1.x"
   },
   "dependencies": {
     "clone": "^1.0.2",
@@ -26,10 +26,10 @@
     "klass": "^1.4.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "npm": "^2.14.5",
-    "qs": "^5.1.0",
+    "npm": "^3.3.8",
+    "qs": "^5.2.0",
     "rimraf": "^2.4.3",
-    "uglify-js": "2.4.24",
+    "uglify-js": "^2.5.0",
     "valentine": "^2.1.4",
     "when": "^3.7.3"
   },
