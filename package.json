@@ -1,7 +1,7 @@
 {
   "name": "wiggin",
   "description": "a web framework",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "author": "Dustin Diaz <dustin@dustindiaz.com> (http://dustindiaz.com)",
   "keywords": [
     "framework",
@@ -22,11 +22,12 @@
     "express": "^4.13.3",
     "findit": "^2.0.0",
     "gzipme": "0.0.9",
-    "jade": "^1.11.0",
     "klass": "^1.4.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "npm": "^3.3.8",
+    "pug": "^2.0.0-rc.4",
+    "pug-cli": "^1.0.0-alpha6",
     "qs": "^5.2.0",
     "rimraf": "^2.4.3",
     "uglify-js": "^2.5.0",

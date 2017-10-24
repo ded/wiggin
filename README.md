@@ -22,7 +22,7 @@ $ make
 ``` sh
 $ wiggin build
 ```
-Creates your compiled `jade` views, then bundles your client dependency tree given the `client` input found in `wiggin-conf.json`.
+Creates your compiled [`pug`](https://pugjs.org/) views, then bundles your client dependency tree given the `client` input found in `wiggin-conf.json`.
 
 ``` sh
 $ wiggin ender

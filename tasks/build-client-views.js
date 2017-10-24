@@ -5,22 +5,18 @@ var debug = require('debug')('wiggin:task')
   , convert = require('../server/lib/convert-to-commonjs-module')
   , findit = require('findit')
   , path = require('path')
-  , mixinReplacement = 'wiggin.mixins = wiggin.mixins || {}'
   , files = []
 
 function write(base, outDir, views, callback) {
   views.forEach(function (view, index) {
     var contents = fs.readFileSync(view, 'utf8')
-      , viewPath = view.substring(base.length)
-      , out = convert('module.exports=' + contents, '*views' + viewPath)
+      // remove the inline view runtime and export the template function
+      .replace(/^[\s\S]*function template/, 'module.exports = function')
+      // replace all usage of inline view runtime with global instance
+      .replace(/pug_([a-z_]+)\(/g, 'pug.$1(')
 
-    // replace local jade_mixin var to use global jade mixins ns
-    out = out.replace(/var jade_mixins = \{\};/g, mixinReplacement)
-
-    // make mixins accessible on `wiggin.mixins` namespace
-    // before:    jade_mixins["form"] = function () { ... }
-    // after:     wiggin.mixins["foo_bar"] = function () { ... }
-    out = out.replace(/jade_mixins\[\"/g, 'wiggin.mixins["')
+    var viewPath = view.substring(base.length)
+      , out = convert(contents, '*views' + viewPath)
 
     mkdirp.sync(path.join(outDir + path.dirname(viewPath)))
     fs.writeFile(outDir + viewPath, out, 'utf8', function (err) {
