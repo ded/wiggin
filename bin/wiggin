@@ -40,12 +40,13 @@ var tasks = {
   },
   compile: function (flags, cb) {
     rimraf.sync('./public/js/views')
-    var jadeRunPath = __dirname + '/../node_modules/jade/bin/jade.js --client --no-debug --path ./ ' + flags.views
-    if (!fs.existsSync(jadeRunPath)) {
-      jadeRunPath = __dirname + '/../../jade/bin/jade.js --client --no-debug --path ./ ' + flags.views
-      console.log('falling back to app level jade library', jadeRunPath)
+    var pugRunArgs = '--client --no-debug --path ./ ' + flags.views
+    var pugRunPath = __dirname + '/../node_modules/.bin/pug'
+    if (!fs.existsSync(pugRunPath)) {
+      pugRunPath = __dirname + '/../../pug-cli/index.js'
+      console.log('falling back to app level `pug-cli` library', pugRunPath)
     }
-    exec(jadeRunPath, function (error, stdout, stderr) {
+    exec(pugRunPath + ' ' + pugRunArgs, function (error, stdout, stderr) {
       if (error) {
         console.error(error)
         process.exit(1)

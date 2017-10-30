@@ -1,5 +1,5 @@
 var express = module.exports.express = require('express')
-  , jade = require('jade')
+  , pug = require('pug')
   , v = require('valentine')
   , utils = require('./server/lib/utils')
   , router = require('./server/lib/router')
@@ -33,8 +33,8 @@ module.exports.init = function (transport, callback) {
   })
 
   // view options
-  app.engine('jade', jade.__express)
-  app.set('view engine', 'jade')
+  app.engine('pug', pug.__express)
+  app.set('view engine', 'pug')
   app.set('views', app.locals.config.views)
 
   // extend application locals with utilities
