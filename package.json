@@ -13,7 +13,7 @@
   "main": "./index.js",
   "bin": "./bin/wiggin",
   "engines": {
-    "node": "4.1.x"
+    "node": "8.9.x"
   },
   "dependencies": {
     "clone": "^1.0.2",
@@ -25,7 +25,7 @@
     "klass": "^1.4.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
-    "npm": "^3.3.8",
+    "npm": "^5.5.1",
     "pug": "^2.0.0-rc.4",
     "pug-cli": "^1.0.0-alpha6",
     "qs": "^5.2.0",
