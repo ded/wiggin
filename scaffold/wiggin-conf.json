@@ -6,6 +6,5 @@
   "shared": "shared",
   "assets": "client/assets",
   "bundles": ["client/app"],
-  "public": "public",
-  "ender": "client/ender"
+  "public": "public"
 }

@@ -18,7 +18,6 @@
   "dependencies": {
     "clone": "^1.0.2",
     "debug": "^2.2.0",
-    "ender": "^2.1.1",
     "express": "^4.13.3",
     "findit": "^2.0.0",
     "gzipme": "0.0.9",

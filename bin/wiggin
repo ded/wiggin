@@ -7,7 +7,6 @@ var npm = require('npm')
   , mkdirp = require('mkdirp')
   , exec = require('child_process').exec
   , argv = minimist(process.argv.slice(2))
-  , v = require('valentine')
   , fs = require('fs')
 
 var tasks = {
@@ -21,9 +20,7 @@ var tasks = {
           npm.commands.install(["wiggin", "when", "debug", "supervisor"], function () {
             console.log('Installed Wiggin locally!')
             tasks.build({}, function () {
-              tasks.ender({}, function () {
-                console.log('Congratulations! Successfully created application. Now run `make` to start your application.')
-              })
+              console.log('Congratulations! Successfully created application. Now run `make` to start your application.')
             })
           })
         })
@@ -61,22 +58,6 @@ var tasks = {
     var bundler = require(__dirname + '/../tasks/js-bundler')
     flags.bundles.forEach(function (path) {
       bundler.bundle(path, flags.shared)
-    })
-  },
-  ender: function (flags, cb) {
-    var pwd = process.cwd()
-    var config = v.extend(require(pwd + '/wiggin-conf.json'), flags || {})
-    mkdirp.sync(pwd + '/public/js/ender')
-    var enderPath = pwd + '/' + config.ender
-    process.chdir(enderPath)
-    var cmd = __dirname + '/../node_modules/ender/bin/ender build . --output ' + pwd + '/' + config['public'] + '/js/ender/ender.js'
-    console.log('executing command', cmd)
-    exec(cmd, function (err, stout, sterr) {
-      if (!err) {
-        console.log('Successfully compiled your ender build', stout)
-        cb && cb()
-      } else console.log('Oops. Your Ender build has failed', stout, err, sterr)
-      process.chdir(pwd)
     })
   },
   version: function () {
