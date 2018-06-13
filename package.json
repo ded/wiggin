@@ -16,9 +16,9 @@
     "node": "8.x.x"
   },
   "dependencies": {
-    "clone": "^1.0.2",
-    "debug": "^2.2.0",
-    "express": "^4.13.3",
+    "clone": "^2.1.1",
+    "debug": "^3.1.0",
+    "express": "^4.16.3",
     "findit": "^2.0.0",
     "gzipme": "0.0.9",
     "klass": "^1.4.1",
@@ -27,7 +27,7 @@
     "npm": "^5.5.1",
     "pug": "^2.0.0-rc.4",
     "pug-cli": "^1.0.0-alpha6",
-    "qs": "^5.2.0",
+    "qs": "^6.5.2",
     "rimraf": "^2.4.3",
     "uglify-js": "^2.5.0",
     "valentine": "^2.1.4",
